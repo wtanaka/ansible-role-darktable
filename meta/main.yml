@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Wesley Tanaka
+  description: Install darktable on ubuntu
+  company: http://wtanaka.com
+  license: GPLv2
+  min_ansible_version: 1.5.4
+  platforms:
+    - name: Ubuntu
+      versions:
+      - precise
+      - trusty
+      - wily
+      - xenial
+  categories:
+  - graphical
+  - desktop
+dependencies: []
