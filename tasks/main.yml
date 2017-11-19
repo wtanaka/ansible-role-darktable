@@ -1,11 +1,7 @@
 ---
 - include: compat.yml
 
-#- include: Debian.yml
-#  when: ansible_os_family == 'Debian'
-
-#- include: RedHat.yml
-#  when: ansible_os_family == 'RedHat'
+- include: include_vars.yml
 
 - name: download darktable key
   command: >
@@ -34,6 +30,4 @@
 - include: Ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
 
-- name: Install darktable
-  apt: name=darktable
-  sudo: yes
+- include: install_package_names.yml
