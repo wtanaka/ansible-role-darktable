@@ -1,19 +1,26 @@
 language: ruby
 rvm:
 - 2.2
-- 2.1
-- 2.0
 - 1.9.3
+env:
+# Ansible 1.5.4 appears to be incompatible with ubuntu:16.10
+# ubuntu:17.10 can't be connected via ssh
+- DOCKER_IMAGES=ubuntu:12.04 ANSIBLE_VERSIONS=1.5.4
+- DOCKER_IMAGES=ubuntu:12.04 ANSIBLE_VERSIONS=1.9.2
+- DOCKER_IMAGES=ubuntu:12.04 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=ubuntu:14.04 ANSIBLE_VERSIONS=1.5.4
+- DOCKER_IMAGES=ubuntu:14.04 ANSIBLE_VERSIONS=1.9.2
+- DOCKER_IMAGES=ubuntu:14.04 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=ubuntu:16.04 ANSIBLE_VERSIONS=1.5.4
+- DOCKER_IMAGES=ubuntu:16.04 ANSIBLE_VERSIONS=1.9.2
+- DOCKER_IMAGES=ubuntu:16.04 ANSIBLE_VERSIONS=2.1.0.0
+- DOCKER_IMAGES=debian:8 ANSIBLE_VERSIONS=1.5.4
+- DOCKER_IMAGES=debian:8 ANSIBLE_VERSIONS=1.9.2
+- DOCKER_IMAGES=debian:8 ANSIBLE_VERSIONS=2.1.0.0
 services:
 - docker
 script:
-# Ansible 1.5.4 appears to be incompatible with ubuntu:16.10
-# ubuntu:17.10 can't be connected via ssh
-- >
-  wget -O- bit.ly/ansibletest | env
-  DOCKER_IMAGES="ubuntu:12.04 ubuntu:14.04 ubuntu:16.04
-  debian:8"
-  ANSIBLE_VERSIONS="1.5.4 1.9.2 2.1.0.0" sh
+- wget -O- bit.ly/ansibletest | sh
 #- >
 #  wget -O- bit.ly/ansibletest | env
 #  DOCKER_IMAGES="ubuntu:17.10"
