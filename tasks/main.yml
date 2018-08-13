@@ -1,33 +1,7 @@
 ---
-- include: compat.yml
+- name: set should_run fact
+  set_fact:
+    should_run: True
 
 - include: include_vars.yml
-
-- name: download darktable key
-  command: >
-    gpg --keyserver keyserver.ubuntu.com
-    --recv 18002889824B24A6F47FCF9C40C18E9EC07EE05F
-  register: darktable_key_result
-  changed_when: "'unchanged: 1' not in darktable_key_result.stderr"
-  sudo: yes
-
-- name: write darktable key to /root
-  command: >
-    gpg --output /root/darktable.gpg
-        --export 18002889824B24A6F47FCF9C40C18E9EC07EE05F
-  args:
-    creates: /root/darktable.gpg
-  sudo: yes
-
-- name: add darktable key to apt-key
-  apt_key: file=/root/darktable.gpg
-  sudo: yes
-
-- name: apt-get update
-  apt: update_cache=true cache_valid_time=3600
-  sudo: yes
-
-- include: Ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-
-- include: install_package_names.yml
+- include: sudoorbecome.yml

@@ -1,0 +1,16 @@
+---
+- name: download darktable key
+  command: >
+    gpg --keyserver keyserver.ubuntu.com
+    --recv 18002889824B24A6F47FCF9C40C18E9EC07EE05F
+  register: darktable_key_result
+  changed_when: "'unchanged: 1' not in darktable_key_result.stderr"
+  sudo: yes
+
+- name: write darktable key to /root
+  command: >
+    gpg --output /root/darktable.gpg
+        --export 18002889824B24A6F47FCF9C40C18E9EC07EE05F
+  args:
+    creates: /root/darktable.gpg
+  sudo: yes
